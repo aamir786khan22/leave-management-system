@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Welcome {{ user.name }}</h2>
+    {% if user.role == 'Employee' %}
+        <a href="{% url 'apply_leave' %}" class="btn">Apply Leave</a>
+        <a href="{% url 'leave_history' %}" class="btn">View Leave History</a>
+    {% else %}
+        <a href="{% url 'admin_dashboard' %}" class="btn">Admin Dashboard</a>
+    {% endif %}
+</div>
+{% endblock %}

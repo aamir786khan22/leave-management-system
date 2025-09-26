@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Apply for Leave | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Apply for Leave</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="leave_type">Leave Type:</label>
+            <select id="leave_type" name="leave_type" required>
+                <option value="" disabled selected>-- Select a leave type --</option>
+                <option value="Sick">Sick Leave</option>
+                <option value="Casual">Casual Leave</option>
+                <option value="Earned">Earned Leave</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="reason">Reason:</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Please provide a brief reason for your leave..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Submit Application</button>
+    </form>
+</div>
+{% endblock %}

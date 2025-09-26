@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Leave Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="/">
+                    <span>LMS Corp</span>
+                </a>
+            </div>
+            {% if user.is_authenticated %}
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% if user.role == 'Employee' %}
+                        <li><a href="{% url 'apply_leave' %}">Apply Leave</a></li>
+                        <li><a href="{% url 'leave_history' %}">Leave History</a></li>
+                    {% else %}
+                        <li><a href="{% url 'admin_dashboard' %}">Admin Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Logout ({{ user.username }})</a></li>
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Manage Your Time Off Effortlessly</h1>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} Leave Management System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

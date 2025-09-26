@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admin Dashboard | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Pending Leave Requests</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.user.name }}</td>
+                    <td>{{ leave.leave_type }}</td>
+                    <td>{{ leave.start_date|date:"d M Y" }}</td>
+                    <td>{{ leave.end_date|date:"d M Y" }}</td>
+                    <td>{{ leave.reason|truncatechars:30 }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'update_leave_status' leave.id 'Approved' %}" class="btn-approve">Approve</a>
+                        <a href="{% url 'update_leave_status' leave.id 'Rejected' %}" class="btn-reject">Reject</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">There are no pending leave requests at this time.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
